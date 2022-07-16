@@ -1,10 +1,10 @@
 *{
     box-sizing: border-box;
-    background-color: #EEEEEE; 
 }
 
 body{
     display: flex;
+    background-color: #EEEEEE; 
     justify-content: center;
     align-items: center;   
 }
