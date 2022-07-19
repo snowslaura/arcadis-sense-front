@@ -18,6 +18,39 @@ export const PointContainer = styled.div`
     }
 `
 
+export const ParameterTitle = styled.div`
+  width: 100%;
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+    svg{
+        font-size: 20px;
+        color: #FFF;
+        cursor: pointer;
+    }
+    h6{
+        font-size: 20px;
+        color: #FFF; 
+    }
+`
+export const Title = styled.div`
+
+
+`
+
+export const Coord = styled.div`
+    span{
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 27px;
+        text-align: center;
+        color: #FFFFFF; 
+    }
+`
+
 export const PointName = styled.div`
     display: flex;
     flex-direction: row;
@@ -45,11 +78,13 @@ export const FormContainer = styled.div`
     display:flex;
     flex-direction: row;
     justify-content: space-between;
+    min-width:100%;
 `
 
 export const LimitSubtitle = styled.div`
     height: 40px; 
     width: 30%;
+    min-width: 90px;
     background-color: #FFF;
     border-radius: 100px;
     font-family: 'Poppins';
@@ -70,10 +105,11 @@ export const Form = styled.form`
     flex-direction: column;
    
 `
-export const Input = styled.input`
-    background: ${props => props.disabled?"#ffffffad":"#FFFFFF"};
+export const Input = styled.div`
+    background:#FFFFFF;
     border-radius: 100px;
     width: 65%;
+    min-width: 100px;
     height: 40px;
     border:none;
     margin-bottom: 10px;
@@ -84,16 +120,10 @@ export const Input = styled.input`
     font-size: 13px;
     line-height: 20px;
     letter-spacing: 0.06em;
-    ::placeholder{
-        font-family: 'Poppins';
-        font-style: normal;
-        font-weight: 500;
-        font-size: 13px;
-        line-height: 20px;
-        letter-spacing: 0.06em;
-        color: rgba(0, 0, 0, 0.6);
-     
-    }
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 
     @media (max-width:300px) {
         width: 90%

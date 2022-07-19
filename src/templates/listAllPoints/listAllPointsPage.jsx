@@ -1,24 +1,21 @@
 import { Header } from "../../components/Header/Header"
 import { Modal } from "../../components/Modal/Modal"
 import {Container} from "./style"
-import { Point } from "../../components/Point/Point"
+import { AllPoints } from "../../components/AllPoints/AllPoints"
 import axios from "axios"
 import { useContext, useEffect, useState } from "react"
 import isModalOpenContext from "../../contexts/isModalOpen"
 
 
+export function ListAllPoints(){
+    const userDataLocalStorage = localStorage.getItem("userData")
+    const unserializedData = JSON.parse(userDataLocalStorage)
+    const tokenStorage = unserializedData.token
 
-export function RegisterParameter(){
-        const userDataLocalStorage = localStorage.getItem("userData")
-        const unserializedData = JSON.parse(userDataLocalStorage)
-        const tokenStorage = unserializedData.token
+    const {isModalOpen, setIsmodalOpen} = useContext(isModalOpenContext)
+    const{message, setMessage} = useContext(isModalOpenContext)
 
-        const {isModalOpen, setIsmodalOpen} = useContext(isModalOpenContext)
-        const{message, setMessage} = useContext(isModalOpenContext)
-
-        const [pointsData, setPointsData] = useState([])
-
-   
+    const [pointsData, setPointsData] = useState([])
 
     useEffect(()=>{
         getPoints()
@@ -43,16 +40,15 @@ export function RegisterParameter(){
         })
     }
 
-    
 
     return(
-    <>  
+        <>  
         {isModalOpen?<Modal message={message} setIsmodalOpen={setIsmodalOpen} setMessage={setMessage}  />:null}
         <Header/>
         <Container>
             {pointsData.map((point)=>{
                 return(
-                    <Point key={point.id} {...point} /> 
+                    <AllPoints key={point.id} {...point} /> 
                 )
             })}                                  
         </Container>

@@ -2,7 +2,7 @@ import {PointContainer,Form, Input, Button, PointName,FormContainer, LimitSubtit
 import { ThreeDots } from "react-loader-spinner"
 import { useState, useContext } from "react"
 import axios from "axios"
-import {FiPlusCircle} from "react-icons/fi";
+import {FiArrowDownCircle, FiArrowUpCircle} from "react-icons/fi";
 import isModalOpenContext from "../../contexts/isModalOpen"
 
 import isLoadingContext from "../../contexts/isLoadingContext"
@@ -12,19 +12,14 @@ export function Point({id,name}){
 
     const {isLoading, setIsLoading} = useContext(isLoadingContext)
     const {setIsmodalOpen} = useContext(isModalOpenContext)
-    const{message, setMessage} = useContext(isModalOpenContext)
+    const{setMessage} = useContext(isModalOpenContext)
   
     const [parametersData, setParametersData] = useState({})
     const[isBoxOpen, setIsBoxOpen] = useState(false)
 
     const userDataLocalStorage = localStorage.getItem("userData")
     const unserializedData = JSON.parse(userDataLocalStorage)
-    const tokenStorage = unserializedData.token
-
-    function isRegular(){
-
-    }
-
+    const tokenStorage = unserializedData.token    
 
     function handleSubmit(event){
 
@@ -52,6 +47,7 @@ export function Point({id,name}){
 
         const promise = axios.post(`${process.env.REACT_APP_API_URL}/parameters`, body , config)
         promise.then(()=>{
+            console.log(parametersData)
             setParametersData({});
             setIsmodalOpen(true)
             setMessage("Parametro enviado com sucesso")
@@ -65,11 +61,9 @@ export function Point({id,name}){
         })
     }
 
-
-
     return(
         <PointContainer>
-            <PointName><p>{name}</p> <FiPlusCircle onClick={()=> setIsBoxOpen(!isBoxOpen)} /></PointName>
+            <PointName><p>{name}</p> {isBoxOpen?<FiArrowUpCircle onClick={()=> setIsBoxOpen(!isBoxOpen)} />:<FiArrowDownCircle onClick={()=> setIsBoxOpen(!isBoxOpen)} />}</PointName>
             {isBoxOpen?
             <Form onSubmit={handleSubmit}>
                 <FormContainer>
