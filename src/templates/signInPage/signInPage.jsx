@@ -1,4 +1,5 @@
 import { Button, Container, Form, Header, Input, SignIn } from "./style"
+import { Modal } from "../../components/Modal/Modal"
 import { Link, useNavigate } from "react-router-dom"
 import { ThreeDots } from "react-loader-spinner"
 import axios from "axios"
@@ -7,12 +8,16 @@ import { useContext } from "react"
 
 import isLoadingContext from "../../contexts/isLoadingContext"
 import tokenContext from "../../contexts/tokenContext"
+import isModalOpenContext from "../../contexts/isModalOpen"
 
 export function SignInPage(){
     const [userData, setUserData] = useState({})    
     const navigate = useNavigate();
     const {isLoading, setIsLoading} = useContext(isLoadingContext);
     const {setToken} = useContext(tokenContext);
+
+    const{isModalOpen, setIsmodalOpen} = useContext(isModalOpenContext)
+    const{message, setMessage} = useContext(isModalOpenContext)   
     
     
     async function handleSubmit(event){
@@ -34,6 +39,8 @@ export function SignInPage(){
             setIsLoading(false)
         })
         promise.catch((e)=>{
+            setIsmodalOpen(true)
+            setMessage(e.response.data)
             console.error(e)
             setIsLoading(false)
         })         
@@ -41,7 +48,9 @@ export function SignInPage(){
 
 
     return(
+        <>
         <Container>
+        {isModalOpen?<Modal message={message} setIsmodalOpen={setIsmodalOpen} setMessage={setMessage}  />:null}
                 <Header>
                     <img src={"https://media.arcadis.com/-/media/themes/arcadiscom/com/com-theme/images/arcadis-logo-black.svg?rev=-1&extension=webp"}alt="Arcadis-sense-logo"/><p>sense</p>
                 </Header>
@@ -52,5 +61,6 @@ export function SignInPage(){
                 </Form>
                 <Link style={isLoading?{pointerEvents: 'none'}:null}  to={'/'}><SignIn disabled={isLoading}> Não possui uma conta? <span>Registre-se</span></SignIn></Link>
         </Container>
+        </>
     )
 }
