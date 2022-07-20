@@ -14,15 +14,15 @@ Você pode se registrar, fazer login, registrar pontos, registrar parametros de 
 ```Destaques:  React, useContext, useState, Arquitetura em camadas, PostgreSQL, JWT```
 
 <h3>Database and backend deploy link</h3>
-https://projeto19-drivenpass-back.herokuapp.com
+ https://arcadis-sense.herokuapp.com/ 
 
-<h3>Front-end deploy</h3>
+<h3>Front-end deploy link</h3>
 https://arcadis-sense-front-9cb84f3qd-snowslaura.vercel.app/
 
 # Usage </br>
 $ git clone https://github.com/snowslaura/arcadis-sense-front
 
-$ cd projeto19-drivenpass
+$ cd arcadis-sense-front
 
 $ npm install
 
