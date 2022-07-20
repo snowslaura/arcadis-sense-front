@@ -1,8 +1,19 @@
 import { Header } from "../../components/Header/Header"
 import { Content, Option } from "./style"
 import { Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
+import { useEffect } from "react"
 
 export function HomePage(){
+    const navigate = useNavigate()
+
+    function verifyToken(){
+        const token = localStorage.getItem("userData")
+        console.log(token)
+        if(!token) navigate('/')
+    }
+    useEffect(()=>verifyToken(),[]) 
+
     return(
     <>
         <Header/>
