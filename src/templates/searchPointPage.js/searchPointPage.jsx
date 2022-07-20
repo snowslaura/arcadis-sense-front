@@ -20,6 +20,7 @@ export function SearchPoint(){
     const{message, setMessage} = useContext(isModalOpenContext)   
     const [pointData, setPointData] = useState({})
     const [searchPoint, setSearchPoint] = useState({})
+    const[isCoordinatesLoading,setIsCoordinatesLoading] = useState(false)
 
     const userDataLocalStorage = localStorage.getItem("userData")
     const unserializedData = JSON.parse(userDataLocalStorage)
@@ -54,7 +55,7 @@ export function SearchPoint(){
     }
 
     function fetchByCoordinates(event){
-        setIsLoading(true)
+        setIsCoordinatesLoading(true)
         event.preventDefault()        
         
         const config = {
@@ -65,15 +66,15 @@ export function SearchPoint(){
 
         const promise = axios.get(`${process.env.REACT_APP_API_URL}/coordinate/?x=${pointData.xCoordinate}&y=${pointData.yCoordinate}`, config)
         promise.then(({data})=>{
-            setSearchPoint(data)
+            setSearchPoint(data[0])
             setPointData({});
-            setIsLoading(false);
+            setIsCoordinatesLoading(false);
         })
         promise.catch((e)=>{
             setIsmodalOpen(true)
             setMessage(e.response.data)
             console.error(e)
-            setIsLoading(false)
+            setIsCoordinatesLoading(false)
         })
     }
     return(
@@ -88,7 +89,7 @@ export function SearchPoint(){
                 <Form onSubmit={fetchByCoordinates}>               
                     <Input type="number" disabled={isLoading} value={pointData.xCoordinate} placeholder="Coordenada X" onChange={(e)=> setPointData({...pointData, xCoordinate: e.target.value})} ></Input>
                     <Input type="number" disabled={isLoading} value={pointData.yCoordinate} placeholder="Coordenada Y"  onChange={(e)=> setPointData({...pointData, yCoordinate: e.target.value})} ></Input>
-                    <Button disabled={isLoading}>{isLoading?<ThreeDots color="#FFFFFF" height={50} width={80} />:"Pesquisar ponto"}</Button>
+                    <Button disabled={isCoordinatesLoading}>{isCoordinatesLoading?<ThreeDots color="#FFFFFF" height={50} width={80} />:"Pesquisar ponto"}</Button>
                 </Form>  
             {!searchPoint.id?null:<AllPoints {...searchPoint}/>}
             </Container>

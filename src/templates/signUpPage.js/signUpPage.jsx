@@ -4,13 +4,17 @@ import { ThreeDots } from "react-loader-spinner"
 import axios from "axios"
 import { useState } from "react"
 import { useContext } from "react"
+import { Modal } from "../../components/Modal/Modal"
 
 import isLoadingContext from "../../contexts/isLoadingContext"
+import isModalOpenContext from "../../contexts/isModalOpen"
 
 export function SignUpPage(){
     const [userData, setUserData] = useState({})    
     const navigate = useNavigate();
     const {isLoading, setIsLoading} = useContext(isLoadingContext)
+    const{isModalOpen, setIsmodalOpen} = useContext(isModalOpenContext)
+    const{message, setMessage} = useContext(isModalOpenContext)  
     
     async function handleSubmit(event){
         setIsLoading(true)
@@ -25,19 +29,24 @@ export function SignUpPage(){
         const promise = axios.post(`${process.env.REACT_APP_API_URL}/signup`, body)
         console.log(process.env.REACT_APP_API_URL)
         promise.then(()=>{
+            setIsmodalOpen(true)
+            setMessage("Cadastro realizado com sucesso")
             navigate('/signin')
             setUserData({});
             setIsLoading(false)
         })
         promise.catch((e)=>{
-            console.error(e)
+            setIsmodalOpen(true)
+            setMessage(e.response.data)
             setIsLoading(false)
         })         
     }
 
 
     return(
+        <>
         <Container>
+        {isModalOpen?<Modal message={message} setIsmodalOpen={setIsmodalOpen} setMessage={setMessage}  />:null}
                 <Header>
                     <img src={"https://media.arcadis.com/-/media/themes/arcadiscom/com/com-theme/images/arcadis-logo-black.svg?rev=-1&extension=webp"}alt="Arcadis-sense-logo"/><p>sense</p>
                 </Header>
@@ -50,5 +59,6 @@ export function SignUpPage(){
                 </Form>
                 <Link style={isLoading?{pointerEvents: 'none'}:null}  to={'/signin'}><SignIn disabled={isLoading}> Já possui uma conta? <span>Entre</span></SignIn></Link>
         </Container>
+        </>
     )
 }

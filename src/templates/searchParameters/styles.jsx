@@ -2,8 +2,8 @@ import styled from "styled-components"
 
 export const Container = styled.div`
     width:100%;
-    height: 50vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 `
@@ -11,16 +11,34 @@ export const Container = styled.div`
 export const Form = styled.form`
     display: flex;
     flex-direction: column;
-    margin-bottom: 25px;
-   
+    justify-content: center;
+    align-items: center;
+    margin: 25px;       
 `
-export const Input = styled.input`
+
+export const Option = styled.div`
+    width:250px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 27px;
+    color:#E76A25;
+        label{
+            width: 250px; 
+        }
+
+`
+export const InputName = styled.input`
     background: ${props => props.disabled?"#FFFFFF":"#FFFFFF"};
     border-radius: 100px;
     width: 310px;
     height: 40px;
     border:none;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     padding: 20px;
     font-family: 'Poppins';
     font-style: normal;
@@ -28,16 +46,25 @@ export const Input = styled.input`
     font-size: 13px;
     line-height: 20px;
     letter-spacing: 0.06em;
-    ::placeholder{
-        font-family: 'Poppins';
-        font-style: normal;
-        font-weight: 500;
-        font-size: 13px;
-        line-height: 20px;
-        letter-spacing: 0.06em;
-        color: rgba(0, 0, 0, 0.6);
+    
+    @media (max-width:300px) {
+        width: 90%
     }
-
+`
+export const Input = styled.input`
+    background: ${props => props.disabled?"#FFFFFF":"#FFFFFF"};
+    border-radius: 100px;
+    width: 30px;
+    height: 40px;
+    border:none;
+    padding: 20px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 20px;
+    letter-spacing: 0.06em;
+    
     @media (max-width:300px) {
         width: 90%
     }
