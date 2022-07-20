@@ -26,4 +26,4 @@ $ cd arcadis-sense-front
 
 $ npm install
 
-$ npm run dev
+$ npm start
